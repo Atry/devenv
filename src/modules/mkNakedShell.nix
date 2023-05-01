@@ -119,6 +119,8 @@ in
 (derivation derivationArg) // {
   inherit meta passthru;
 
+  __impure = true;
+
   # https://github.com/NixOS/nixpkgs/blob/41f7e338216fd7f5e57817c4f8e148d42fb88b24/pkgs/stdenv/generic/make-derivation.nix#L486-L504
   inputDerivation = derivation (derivationArg // {
     # Add a name in case the original drv didn't have one
