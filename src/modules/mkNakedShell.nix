@@ -62,6 +62,8 @@ let
   derivationArg = {
     inherit name;
     inherit (stdenv) system;
+    
+    __impure = true;
 
     # `nix develop` actually checks and uses builder. And it must be bash.
     builder = bashPath;
