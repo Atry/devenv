@@ -52,7 +52,7 @@ let
       })
     ];
     config = {
-      Env = lib.mapAttrsToList (name: value: "${name}=${lib.escapeShellArg (toString value)}") config.env;
+      Env = lib.mapAttrsToList (name: value: "${name}=${toString value}") config.env;
       Cmd = [ cfg.startupCommand ];
       Entrypoint = cfg.entrypoint;
     };
