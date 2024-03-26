@@ -34,6 +34,7 @@ let
     name = cfg.name;
     tag = cfg.version;
     maxLayers = cfg.maxLayers;
+    layers = cfg.layers;
     copyToRoot = [
       (pkgs.runCommand "create-paths" { } ''
         mkdir -p $out/tmp
@@ -167,6 +168,12 @@ let
         description = "the maximum number of layers to create.";
         defaultText = lib.literalExpression 1;
         default = 1;
+      };
+
+      layers = lib.mkOption {
+        type = types.listOf types.anything;
+        description = "the layers to create.";
+        default = [ ];
       };
     };
   });
