@@ -1281,6 +1281,58 @@ list of (submodule)
 
 
 
+## containers.\<name>.layers.\*.perms.\*.gid
+
+
+
+The group ID to apply to all of the files matched by the ` regex `.
+
+
+
+*Type:*
+null or signed integer
+
+
+
+*Default:*
+` null `
+
+
+
+*Example:*
+` "1000" `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/containers.nix](https://github.com/cachix/devenv/blob/main/src/modules/containers.nix)
+
+
+
+## containers.\<name>.layers.\*.perms.\*.gname
+
+
+
+The group name to apply to all of the files matched by the ` regex `.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `
+
+
+
+*Example:*
+` "root" `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/containers.nix](https://github.com/cachix/devenv/blob/main/src/modules/containers.nix)
+
+
+
 ## containers.\<name>.layers.\*.perms.\*.mode
 
 
@@ -1290,7 +1342,12 @@ The numeric permissions mode to apply to all of the files matched by the ` regex
 
 
 *Type:*
-string
+null or string
+
+
+
+*Default:*
+` null `
 
 
 
@@ -1327,12 +1384,69 @@ A regex pattern to select files or directories to apply the ` mode ` to.
 
 
 *Type:*
-string
+null or string
+
+
+
+*Default:*
+` null `
 
 
 
 *Example:*
 ` ".*" `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/containers.nix](https://github.com/cachix/devenv/blob/main/src/modules/containers.nix)
+
+
+
+## containers.\<name>.layers.\*.perms.\*.uid
+
+
+
+The user ID to apply to all of the files matched by the ` regex `.
+
+
+
+*Type:*
+null or signed integer
+
+
+
+*Default:*
+` null `
+
+
+
+*Example:*
+` "1000" `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/containers.nix](https://github.com/cachix/devenv/blob/main/src/modules/containers.nix)
+
+
+
+## containers.\<name>.layers.\*.perms.\*.uname
+
+
+
+The user name to apply to all of the files matched by the ` regex `.
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `
+
+
+
+*Example:*
+` "root" `
 
 *Declared by:*
  - [https://github.com/cachix/devenv/blob/main/src/modules/containers.nix](https://github.com/cachix/devenv/blob/main/src/modules/containers.nix)
@@ -1704,7 +1818,7 @@ string
 
 
 *Default:*
-` "1.0.8" `
+` "1.1.0" `
 
 *Declared by:*
  - [https://github.com/cachix/devenv/blob/main/src/modules/update-check.nix](https://github.com/cachix/devenv/blob/main/src/modules/update-check.nix)
@@ -2225,8 +2339,6 @@ package
 
 ## languages.deno.enable
 
-
-
 Whether to enable tools for Deno development.
 
 
@@ -2318,6 +2430,8 @@ package
 
 
 ## languages.elixir.enable
+
+
 
 Whether to enable tools for Elixir development.
 
@@ -2575,6 +2689,27 @@ boolean
 
 *Example:*
 ` true `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/languages/go.nix](https://github.com/cachix/devenv/blob/main/src/modules/languages/go.nix)
+
+
+
+## languages.go.enableHardeningWorkaround
+
+
+
+Enable hardening workaround required for Delve debugger (https://github.com/go-delve/delve/issues/3085)
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
 
 *Declared by:*
  - [https://github.com/cachix/devenv/blob/main/src/modules/languages/go.nix](https://github.com/cachix/devenv/blob/main/src/modules/languages/go.nix)
@@ -4685,8 +4820,6 @@ list of string
 
 ## languages.python.poetry.install.groups
 
-
-
 Which dependency groups to install. See ` --with `.
 
 
@@ -4790,6 +4923,8 @@ boolean
 
 ## languages.python.poetry.install.quiet
 
+
+
 Whether ` poetry install ` should avoid outputting messages during devenv initialisation.
 
 
@@ -4869,6 +5004,74 @@ package
 
 *Default:*
 ` pkgs.uv `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/languages/python.nix](https://github.com/cachix/devenv/blob/main/src/modules/languages/python.nix)
+
+
+
+## languages.python.uv.sync.enable
+
+
+
+Whether to enable uv sync during devenv initialisation.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+
+
+*Example:*
+` true `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/languages/python.nix](https://github.com/cachix/devenv/blob/main/src/modules/languages/python.nix)
+
+
+
+## languages.python.uv.sync.allExtras
+
+
+
+Whether to install all extras. See ` --all-extras `.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/languages/python.nix](https://github.com/cachix/devenv/blob/main/src/modules/languages/python.nix)
+
+
+
+## languages.python.uv.sync.extras
+
+
+
+Which extras to install. See ` --extra `.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/devenv/blob/main/src/modules/languages/python.nix](https://github.com/cachix/devenv/blob/main/src/modules/languages/python.nix)
@@ -6303,6 +6506,35 @@ null or string
 
 
 
+## outputs
+
+
+
+Nix outputs for ` devenv build ` consumption.
+
+
+
+*Type:*
+outputOf (attribute set)
+
+
+
+*Default:*
+
+```
+{
+  foo = {
+    ncdu = <derivation ncdu-2.3>;
+  };
+  git = <derivation git-2.44.0>;
+}
+```
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/outputs.nix](https://github.com/cachix/devenv/blob/main/src/modules/outputs.nix)
+
+
+
 ## pre-commit
 
 
@@ -6366,6 +6598,28 @@ package
 pkgs.pre-commit
 
 ```
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/pre-commit.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/pre-commit.nix)
+
+
+
+## pre-commit.addGcRoot
+
+
+
+Whether to add the generated pre-commit-config.yaml to the garbage collector roots.
+This prevents Nix from garbage-collecting the tools used by hooks.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/pre-commit.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/pre-commit.nix)
@@ -6477,11 +6731,19 @@ Run bash unit tests
 
 Format shell files
 
+**` biome `**
+
+A toolchain for web projects, aimed to provide functionalities to maintain them
+
 **` black `**
 
 The uncompromising Python code formatter
 
 **` cabal-fmt `**
+
+Format Cabal files
+
+**` cabal-gild `**
 
 Format Cabal files
 
@@ -6813,7 +7075,15 @@ Incremental analysis assistant for writing in Nix.
 
 **` nixfmt `**
 
-Nix code prettifier.
+Nix code prettifier (classic).
+
+**` nixfmt-classic `**
+
+Nix code prettifier (classic).
+
+**` nixfmt-rfc-style `**
+
+Nix code prettifier (RFC 166 style).
 
 **` nixpkgs-fmt `**
 
@@ -6897,6 +7167,10 @@ Check for debugger imports and py37+ ` breakpoint() ` calls in python source.
 
 Automatically upgrade syntax for newer versions.
 
+**` reuse `**
+
+reuse is a tool for compliance with the REUSE recommendations.
+
 **` revive `**
 
 A linter for Go source code.
@@ -6907,11 +7181,15 @@ Prevent committing secret keys into your source code
 
 **` rome `**
 
-Unified developer tools for JavaScript, TypeScript, and the web
+A toolchain for web projects, aimed to provide functionalities to maintain them
 
 **` ruff `**
 
 An extremely fast Python linter, written in Rust.
+
+**` ruff-format `**
+
+An extremely fast Python code formatter, written in Rust.
 
 **` rustfmt `**
 
@@ -6969,6 +7247,10 @@ Format TOML files with taplo fmt
 
 Format terraform (` .tf `) files.
 
+**` terraform-validate `**
+
+Validates terraform configuration files (` .tf `).
+
 **` tflint `**
 
 A Pluggable Terraform Linter.
@@ -6993,9 +7275,17 @@ Source code spell checker
 
 format typst
 
+**` typstyle `**
+
+Beautiful and reliable typst code formatter
+
 **` vale `**
 
 A markup-aware linter for prose built with speed and extensibility in mind.
+
+**` yamlfmt `**
+
+Formatter for YAML files.
 
 **` yamllint `**
 
@@ -7084,6 +7374,27 @@ boolean
 
 
 
+## pre-commit.hooks.\<name>.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.\<name>.description
 
 
@@ -7115,6 +7426,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.\<name>.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -7381,8 +7713,6 @@ list of string
 
 ## pre-commit.hooks.\<name>.verbose
 
-
-
 forces the output of the hook to be printed even when the hook passes.
 
 
@@ -7439,6 +7769,8 @@ boolean
 
 ## pre-commit.hooks.alejandra.package
 
+
+
 An optional package that provides the hook.
 
 
@@ -7477,6 +7809,27 @@ boolean
 
 
 
+## pre-commit.hooks.alejandra.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.alejandra.description
 
 
@@ -7508,6 +7861,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.alejandra.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -7982,6 +8356,27 @@ boolean
 
 
 
+## pre-commit.hooks.ansible-lint.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.ansible-lint.description
 
 
@@ -8013,6 +8408,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.ansible-lint.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -8419,6 +8835,27 @@ boolean
 
 
 
+## pre-commit.hooks.autoflake.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.autoflake.description
 
 
@@ -8450,6 +8887,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.autoflake.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -8781,6 +9239,506 @@ boolean
 
 
 
+## pre-commit.hooks.biome
+
+
+
+biome hook
+
+
+
+*Type:*
+submodule
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.biome.enable
+
+
+
+Whether to enable this pre-commit hook.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.package
+
+
+
+An optional package that provides the hook.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.always_run
+
+
+
+if true this hook will run even if there are no matching files.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.description
+
+
+
+Description of the hook. Used for metadata purposes only.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.entry
+
+
+
+The entry point - the executable to run. ` entry ` can also contain arguments that will not be overridden, such as ` entry = "autopep8 -i"; `.
+
+
+
+*Type:*
+string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.excludes
+
+
+
+Exclude files that were matched by these patterns.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.extraPackages
+
+
+
+Additional packages required to run the hook.
+
+These are propagated to ` enabledPackages ` for constructing developer
+environments.
+
+
+
+*Type:*
+list of package
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.fail_fast
+
+
+
+if true pre-commit will stop running hooks if this hook fails.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.files
+
+
+
+The pattern of files to run on.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.language
+
+
+
+The language of the hook - tells pre-commit how to install the hook.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "system" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.name
+
+
+
+The name of the hook. Shown during hook execution.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+internal name, same as ` id `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.pass_filenames
+
+
+
+Whether to pass filenames as arguments to the entry point.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.raw
+
+
+
+Raw fields of a pre-commit hook. This is mostly for internal use but
+exposed in case you need to work around something.
+
+Default: taken from the other hook options.
+
+
+
+*Type:*
+attribute set of unspecified value
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.require_serial
+
+
+
+if true this hook will execute using a single process instead of in parallel.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.settings.binPath
+
+
+
+` biome ` binary path. E.g. if you want to use the ` biome ` in ` node_modules `, use ` ./node_modules/.bin/biome `.
+
+
+
+*Type:*
+null or path
+
+
+
+*Default:*
+` "\${tools.biome}/bin/biome" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.biome.settings.configPath
+
+
+
+Path to the configuration JSON file
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.biome.settings.write
+
+
+
+Whether to edit files inplace.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.biome.stages
+
+
+
+Confines the hook to run at a particular stage.
+
+
+
+*Type:*
+list of (one of “commit-msg”, “post-checkout”, “post-commit”, “post-merge”, “post-rewrite”, “pre-commit”, “pre-merge-commit”, “pre-push”, “pre-rebase”, “prepare-commit-msg”, “manual”, “commit”, “push”, “merge-commit”)
+
+
+
+*Default:*
+` default_stages `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.types
+
+
+
+List of file types to run on. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```
+[
+  "file"
+]
+```
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.types_or
+
+
+
+List of file types to run on, where only a single type needs to match.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.biome.verbose
+
+
+
+forces the output of the hook to be printed even when the hook passes.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.black
 
 
@@ -8860,6 +9818,27 @@ boolean
 
 
 
+## pre-commit.hooks.black.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.black.description
 
 
@@ -8891,6 +9870,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.black.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -9313,6 +10313,27 @@ boolean
 
 
 
+## pre-commit.hooks.clippy.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.clippy.description
 
 
@@ -9344,6 +10365,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.clippy.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -9771,6 +10813,27 @@ boolean
 
 
 
+## pre-commit.hooks.cmake-format.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.cmake-format.description
 
 
@@ -9802,6 +10865,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.cmake-format.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -10192,6 +11276,27 @@ boolean
 
 
 
+## pre-commit.hooks.credo.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.credo.description
 
 
@@ -10223,6 +11328,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.credo.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -10608,6 +11734,27 @@ boolean
 
 
 
+## pre-commit.hooks.deadnix.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.deadnix.description
 
 
@@ -10639,6 +11786,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.deadnix.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -11150,6 +12318,27 @@ boolean
 
 
 
+## pre-commit.hooks.denofmt.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.denofmt.description
 
 
@@ -11181,6 +12370,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.denofmt.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -11587,6 +12797,27 @@ boolean
 
 
 
+## pre-commit.hooks.denolint.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.denolint.description
 
 
@@ -11618,6 +12849,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.denolint.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -12024,6 +13276,27 @@ boolean
 
 
 
+## pre-commit.hooks.dune-fmt.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.dune-fmt.description
 
 
@@ -12055,6 +13328,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.dune-fmt.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -12461,6 +13755,27 @@ boolean
 
 
 
+## pre-commit.hooks.eclint.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.eclint.description
 
 
@@ -12492,6 +13807,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.eclint.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -12961,6 +14297,27 @@ boolean
 
 
 
+## pre-commit.hooks.eslint.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.eslint.description
 
 
@@ -12992,6 +14349,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.eslint.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -13398,6 +14776,27 @@ boolean
 
 
 
+## pre-commit.hooks.flake8.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.flake8.description
 
 
@@ -13429,6 +14828,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.flake8.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -13870,6 +15290,27 @@ boolean
 
 
 
+## pre-commit.hooks.flynt.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.flynt.description
 
 
@@ -13901,6 +15342,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.flynt.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -14496,6 +15958,27 @@ boolean
 
 
 
+## pre-commit.hooks.headache.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.headache.description
 
 
@@ -14527,6 +16010,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.headache.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -14912,6 +16416,27 @@ boolean
 
 
 
+## pre-commit.hooks.hlint.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.hlint.description
 
 
@@ -14943,6 +16468,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.hlint.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -15328,6 +16874,27 @@ boolean
 
 
 
+## pre-commit.hooks.hpack.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.hpack.description
 
 
@@ -15359,6 +16926,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.hpack.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -15744,6 +17332,27 @@ boolean
 
 
 
+## pre-commit.hooks.isort.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.isort.description
 
 
@@ -15775,6 +17384,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.isort.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -16181,6 +17811,27 @@ boolean
 
 
 
+## pre-commit.hooks.lacheck.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.lacheck.description
 
 
@@ -16212,6 +17863,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.lacheck.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -16576,6 +18248,27 @@ boolean
 
 
 
+## pre-commit.hooks.latexindent.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.latexindent.description
 
 
@@ -16607,6 +18300,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.latexindent.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -16992,6 +18706,27 @@ boolean
 
 
 
+## pre-commit.hooks.lua-ls.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.lua-ls.description
 
 
@@ -17023,6 +18758,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.lua-ls.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -17429,6 +19185,27 @@ boolean
 
 
 
+## pre-commit.hooks.lychee.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.lychee.description
 
 
@@ -17460,6 +19237,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.lychee.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -17866,6 +19664,27 @@ boolean
 
 
 
+## pre-commit.hooks.markdownlint.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.markdownlint.description
 
 
@@ -17897,6 +19716,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.markdownlint.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -18282,6 +20122,27 @@ boolean
 
 
 
+## pre-commit.hooks.mdl.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.mdl.description
 
 
@@ -18313,6 +20174,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.mdl.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -18929,6 +20811,27 @@ boolean
 
 
 
+## pre-commit.hooks.mkdocs-linkcheck.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.mkdocs-linkcheck.description
 
 
@@ -18960,6 +20863,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.mkdocs-linkcheck.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -19454,6 +21378,27 @@ boolean
 
 
 
+## pre-commit.hooks.mypy.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.mypy.description
 
 
@@ -19485,6 +21430,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.mypy.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -19795,11 +21761,11 @@ boolean
 
 
 
-## pre-commit.hooks.nixfmt
+## pre-commit.hooks.nixfmt-classic
 
 
 
-nixfmt hook
+nixfmt (classic) hook
 
 
 
@@ -19811,7 +21777,7 @@ submodule
 
 
 
-## pre-commit.hooks.nixfmt.enable
+## pre-commit.hooks.nixfmt-classic.enable
 
 
 
@@ -19832,7 +21798,7 @@ boolean
 
 
 
-## pre-commit.hooks.nixfmt.package
+## pre-commit.hooks.nixfmt-classic.package
 
 
 
@@ -19853,7 +21819,7 @@ null or package
 
 
 
-## pre-commit.hooks.nixfmt.always_run
+## pre-commit.hooks.nixfmt-classic.always_run
 
 
 
@@ -19874,7 +21840,28 @@ boolean
 
 
 
-## pre-commit.hooks.nixfmt.description
+## pre-commit.hooks.nixfmt-classic.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-classic.description
 
 
 
@@ -19895,7 +21882,7 @@ string
 
 
 
-## pre-commit.hooks.nixfmt.entry
+## pre-commit.hooks.nixfmt-classic.entry
 
 
 
@@ -19911,7 +21898,28 @@ string
 
 
 
-## pre-commit.hooks.nixfmt.excludes
+## pre-commit.hooks.nixfmt-classic.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-classic.excludes
 
 
 
@@ -19932,7 +21940,7 @@ list of string
 
 
 
-## pre-commit.hooks.nixfmt.extraPackages
+## pre-commit.hooks.nixfmt-classic.extraPackages
 
 
 
@@ -19956,7 +21964,7 @@ list of package
 
 
 
-## pre-commit.hooks.nixfmt.fail_fast
+## pre-commit.hooks.nixfmt-classic.fail_fast
 
 
 
@@ -19977,7 +21985,7 @@ boolean
 
 
 
-## pre-commit.hooks.nixfmt.files
+## pre-commit.hooks.nixfmt-classic.files
 
 
 
@@ -19998,7 +22006,7 @@ string
 
 
 
-## pre-commit.hooks.nixfmt.language
+## pre-commit.hooks.nixfmt-classic.language
 
 
 
@@ -20019,7 +22027,7 @@ string
 
 
 
-## pre-commit.hooks.nixfmt.name
+## pre-commit.hooks.nixfmt-classic.name
 
 
 
@@ -20040,7 +22048,7 @@ internal name, same as ` id `
 
 
 
-## pre-commit.hooks.nixfmt.pass_filenames
+## pre-commit.hooks.nixfmt-classic.pass_filenames
 
 
 
@@ -20061,7 +22069,7 @@ boolean
 
 
 
-## pre-commit.hooks.nixfmt.raw
+## pre-commit.hooks.nixfmt-classic.raw
 
 
 
@@ -20080,7 +22088,7 @@ attribute set of unspecified value
 
 
 
-## pre-commit.hooks.nixfmt.require_serial
+## pre-commit.hooks.nixfmt-classic.require_serial
 
 
 
@@ -20101,7 +22109,7 @@ boolean
 
 
 
-## pre-commit.hooks.nixfmt.settings.width
+## pre-commit.hooks.nixfmt-classic.settings.width
 
 
 
@@ -20122,7 +22130,7 @@ null or signed integer
 
 
 
-## pre-commit.hooks.nixfmt.stages
+## pre-commit.hooks.nixfmt-classic.stages
 
 
 
@@ -20143,7 +22151,7 @@ list of (one of “commit-msg”, “post-checkout”, “post-commit”, “pos
 
 
 
-## pre-commit.hooks.nixfmt.types
+## pre-commit.hooks.nixfmt-classic.types
 
 
 
@@ -20169,7 +22177,7 @@ list of string
 
 
 
-## pre-commit.hooks.nixfmt.types_or
+## pre-commit.hooks.nixfmt-classic.types_or
 
 
 
@@ -20190,7 +22198,465 @@ list of string
 
 
 
-## pre-commit.hooks.nixfmt.verbose
+## pre-commit.hooks.nixfmt-classic.verbose
+
+
+
+forces the output of the hook to be printed even when the hook passes.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style
+
+
+
+nixfmt (RFC 166 style) hook
+
+
+
+*Type:*
+submodule
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.enable
+
+
+
+Whether to enable this pre-commit hook.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.package
+
+
+
+An optional package that provides the hook.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.always_run
+
+
+
+if true this hook will run even if there are no matching files.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.description
+
+
+
+Description of the hook. Used for metadata purposes only.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.entry
+
+
+
+The entry point - the executable to run. ` entry ` can also contain arguments that will not be overridden, such as ` entry = "autopep8 -i"; `.
+
+
+
+*Type:*
+string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.excludes
+
+
+
+Exclude files that were matched by these patterns.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.extraPackages
+
+
+
+Additional packages required to run the hook.
+
+These are propagated to ` enabledPackages ` for constructing developer
+environments.
+
+
+
+*Type:*
+list of package
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.fail_fast
+
+
+
+if true pre-commit will stop running hooks if this hook fails.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.files
+
+
+
+The pattern of files to run on.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.language
+
+
+
+The language of the hook - tells pre-commit how to install the hook.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "system" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.name
+
+
+
+The name of the hook. Shown during hook execution.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+internal name, same as ` id `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.pass_filenames
+
+
+
+Whether to pass filenames as arguments to the entry point.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.raw
+
+
+
+Raw fields of a pre-commit hook. This is mostly for internal use but
+exposed in case you need to work around something.
+
+Default: taken from the other hook options.
+
+
+
+*Type:*
+attribute set of unspecified value
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.require_serial
+
+
+
+if true this hook will execute using a single process instead of in parallel.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.settings.width
+
+
+
+Line width.
+
+
+
+*Type:*
+null or signed integer
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.stages
+
+
+
+Confines the hook to run at a particular stage.
+
+
+
+*Type:*
+list of (one of “commit-msg”, “post-checkout”, “post-commit”, “post-merge”, “post-rewrite”, “pre-commit”, “pre-merge-commit”, “pre-push”, “pre-rebase”, “prepare-commit-msg”, “manual”, “commit”, “push”, “merge-commit”)
+
+
+
+*Default:*
+` default_stages `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.types
+
+
+
+List of file types to run on. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```
+[
+  "file"
+]
+```
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.types_or
+
+
+
+List of file types to run on, where only a single type needs to match.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.nixfmt-rfc-style.verbose
 
 
 
@@ -20290,6 +22756,27 @@ boolean
 
 
 
+## pre-commit.hooks.no-commit-to-branch.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.no-commit-to-branch.description
 
 
@@ -20321,6 +22808,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.no-commit-to-branch.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -20753,6 +23261,27 @@ boolean
 
 
 
+## pre-commit.hooks.ormolu.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.ormolu.description
 
 
@@ -20784,6 +23313,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.ormolu.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -21190,6 +23740,27 @@ boolean
 
 
 
+## pre-commit.hooks.php-cs-fixer.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.php-cs-fixer.description
 
 
@@ -21221,6 +23792,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.php-cs-fixer.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -21610,6 +24202,27 @@ boolean
 
 
 
+## pre-commit.hooks.phpcbf.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.phpcbf.description
 
 
@@ -21641,6 +24254,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.phpcbf.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -22030,6 +24664,27 @@ boolean
 
 
 
+## pre-commit.hooks.phpcs.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.phpcs.description
 
 
@@ -22061,6 +24716,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.phpcs.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -22450,6 +25126,27 @@ boolean
 
 
 
+## pre-commit.hooks.phpstan.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.phpstan.description
 
 
@@ -22481,6 +25178,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.phpstan.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -22870,6 +25588,27 @@ boolean
 
 
 
+## pre-commit.hooks.prettier.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.prettier.description
 
 
@@ -22901,6 +25640,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.prettier.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -24074,6 +26834,27 @@ boolean
 
 
 
+## pre-commit.hooks.psalm.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.psalm.description
 
 
@@ -24105,6 +26886,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.psalm.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -24494,6 +27296,27 @@ boolean
 
 
 
+## pre-commit.hooks.pylint.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.pylint.description
 
 
@@ -24525,6 +27348,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.pylint.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -24956,6 +27800,27 @@ boolean
 
 
 
+## pre-commit.hooks.pyright.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.pyright.description
 
 
@@ -24987,6 +27852,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.pyright.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -25376,6 +28262,27 @@ boolean
 
 
 
+## pre-commit.hooks.pyupgrade.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.pyupgrade.description
 
 
@@ -25407,6 +28314,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.pyupgrade.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -25717,6 +28645,469 @@ boolean
 
 
 
+## pre-commit.hooks.reuse
+
+
+
+reuse hook
+
+
+
+*Type:*
+submodule
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.reuse.enable
+
+
+
+Whether to enable this pre-commit hook.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.package
+
+
+
+An optional package that provides the hook.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.always_run
+
+
+
+if true this hook will run even if there are no matching files.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.description
+
+
+
+Description of the hook. Used for metadata purposes only.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.entry
+
+
+
+The entry point - the executable to run. ` entry ` can also contain arguments that will not be overridden, such as ` entry = "autopep8 -i"; `.
+
+
+
+*Type:*
+string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.excludes
+
+
+
+Exclude files that were matched by these patterns.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.extraPackages
+
+
+
+Additional packages required to run the hook.
+
+These are propagated to ` enabledPackages ` for constructing developer
+environments.
+
+
+
+*Type:*
+list of package
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.fail_fast
+
+
+
+if true pre-commit will stop running hooks if this hook fails.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.files
+
+
+
+The pattern of files to run on.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.language
+
+
+
+The language of the hook - tells pre-commit how to install the hook.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "system" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.name
+
+
+
+The name of the hook. Shown during hook execution.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+internal name, same as ` id `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.pass_filenames
+
+
+
+Whether to pass filenames as arguments to the entry point.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.raw
+
+
+
+Raw fields of a pre-commit hook. This is mostly for internal use but
+exposed in case you need to work around something.
+
+Default: taken from the other hook options.
+
+
+
+*Type:*
+attribute set of unspecified value
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.require_serial
+
+
+
+if true this hook will execute using a single process instead of in parallel.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.settings.flags
+
+
+
+Flags passed to reuse. For available options run ‘reuse lint --help’
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+
+
+*Example:*
+` "--json" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.reuse.stages
+
+
+
+Confines the hook to run at a particular stage.
+
+
+
+*Type:*
+list of (one of “commit-msg”, “post-checkout”, “post-commit”, “post-merge”, “post-rewrite”, “pre-commit”, “pre-merge-commit”, “pre-push”, “pre-rebase”, “prepare-commit-msg”, “manual”, “commit”, “push”, “merge-commit”)
+
+
+
+*Default:*
+` default_stages `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.types
+
+
+
+List of file types to run on. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```
+[
+  "file"
+]
+```
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.types_or
+
+
+
+List of file types to run on, where only a single type needs to match.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.reuse.verbose
+
+
+
+forces the output of the hook to be printed even when the hook passes.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.revive
 
 
@@ -25796,6 +29187,27 @@ boolean
 
 
 
+## pre-commit.hooks.revive.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.revive.description
 
 
@@ -25827,6 +29239,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.revive.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -26212,6 +29645,27 @@ boolean
 
 
 
+## pre-commit.hooks.ripsecrets.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.ripsecrets.description
 
 
@@ -26243,6 +29697,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.ripsecrets.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -26549,464 +30024,6 @@ boolean
 
 
 
-## pre-commit.hooks.rome
-
-
-
-rome hook
-
-
-
-*Type:*
-submodule
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
-
-
-
-## pre-commit.hooks.rome.enable
-
-
-
-Whether to enable this pre-commit hook.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-` false `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.package
-
-
-
-An optional package that provides the hook.
-
-
-
-*Type:*
-null or package
-
-
-
-*Default:*
-` null `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.always_run
-
-
-
-if true this hook will run even if there are no matching files.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-` false `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.description
-
-
-
-Description of the hook. Used for metadata purposes only.
-
-
-
-*Type:*
-string
-
-
-
-*Default:*
-` "" `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.entry
-
-
-
-The entry point - the executable to run. ` entry ` can also contain arguments that will not be overridden, such as ` entry = "autopep8 -i"; `.
-
-
-
-*Type:*
-string
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.excludes
-
-
-
-Exclude files that were matched by these patterns.
-
-
-
-*Type:*
-list of string
-
-
-
-*Default:*
-` [ ] `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.extraPackages
-
-
-
-Additional packages required to run the hook.
-
-These are propagated to ` enabledPackages ` for constructing developer
-environments.
-
-
-
-*Type:*
-list of package
-
-
-
-*Default:*
-` [ ] `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.fail_fast
-
-
-
-if true pre-commit will stop running hooks if this hook fails.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-` false `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.files
-
-
-
-The pattern of files to run on.
-
-
-
-*Type:*
-string
-
-
-
-*Default:*
-` "" `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.language
-
-
-
-The language of the hook - tells pre-commit how to install the hook.
-
-
-
-*Type:*
-string
-
-
-
-*Default:*
-` "system" `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.name
-
-
-
-The name of the hook. Shown during hook execution.
-
-
-
-*Type:*
-string
-
-
-
-*Default:*
-internal name, same as ` id `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.pass_filenames
-
-
-
-Whether to pass filenames as arguments to the entry point.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-` true `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.raw
-
-
-
-Raw fields of a pre-commit hook. This is mostly for internal use but
-exposed in case you need to work around something.
-
-Default: taken from the other hook options.
-
-
-
-*Type:*
-attribute set of unspecified value
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.require_serial
-
-
-
-if true this hook will execute using a single process instead of in parallel.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-` false `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.settings.binPath
-
-
-
-` rome ` binary path. E.g. if you want to use the ` rome ` in ` node_modules `, use ` ./node_modules/.bin/rome `.
-
-
-
-*Type:*
-null or path
-
-
-
-*Default:*
-` "\${tools.biome}/bin/biome" `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
-
-
-
-## pre-commit.hooks.rome.settings.configPath
-
-
-
-Path to the configuration JSON file
-
-
-
-*Type:*
-string
-
-
-
-*Default:*
-` "" `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
-
-
-
-## pre-commit.hooks.rome.settings.write
-
-
-
-Whether to edit files inplace.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-` true `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
-
-
-
-## pre-commit.hooks.rome.stages
-
-
-
-Confines the hook to run at a particular stage.
-
-
-
-*Type:*
-list of (one of “commit-msg”, “post-checkout”, “post-commit”, “post-merge”, “post-rewrite”, “pre-commit”, “pre-merge-commit”, “pre-push”, “pre-rebase”, “prepare-commit-msg”, “manual”, “commit”, “push”, “merge-commit”)
-
-
-
-*Default:*
-` default_stages `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.types
-
-
-
-List of file types to run on. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
-
-
-
-*Type:*
-list of string
-
-
-
-*Default:*
-
-```
-[
-  "file"
-]
-```
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.types_or
-
-
-
-List of file types to run on, where only a single type needs to match.
-
-
-
-*Type:*
-list of string
-
-
-
-*Default:*
-` [ ] `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
-## pre-commit.hooks.rome.verbose
-
-
-
-forces the output of the hook to be printed even when the hook passes.
-
-
-
-*Type:*
-boolean
-
-
-
-*Default:*
-` false `
-
-*Declared by:*
- - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
-
-
-
 ## pre-commit.hooks.rustfmt
 
 
@@ -27125,6 +30142,27 @@ boolean
 
 
 
+## pre-commit.hooks.rustfmt.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.rustfmt.description
 
 
@@ -27156,6 +30194,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.rustfmt.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -27441,6 +30500,464 @@ boolean
 
 
 
+## pre-commit.hooks.shfmt
+
+
+
+shfmt hook
+
+
+
+*Type:*
+submodule
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.shfmt.enable
+
+
+
+Whether to enable this pre-commit hook.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.package
+
+
+
+An optional package that provides the hook.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.always_run
+
+
+
+if true this hook will run even if there are no matching files.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.description
+
+
+
+Description of the hook. Used for metadata purposes only.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.entry
+
+
+
+The entry point - the executable to run. ` entry ` can also contain arguments that will not be overridden, such as ` entry = "autopep8 -i"; `.
+
+
+
+*Type:*
+string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.excludes
+
+
+
+Exclude files that were matched by these patterns.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.extraPackages
+
+
+
+Additional packages required to run the hook.
+
+These are propagated to ` enabledPackages ` for constructing developer
+environments.
+
+
+
+*Type:*
+list of package
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.fail_fast
+
+
+
+if true pre-commit will stop running hooks if this hook fails.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.files
+
+
+
+The pattern of files to run on.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.language
+
+
+
+The language of the hook - tells pre-commit how to install the hook.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "system" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.name
+
+
+
+The name of the hook. Shown during hook execution.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+internal name, same as ` id `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.pass_filenames
+
+
+
+Whether to pass filenames as arguments to the entry point.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.raw
+
+
+
+Raw fields of a pre-commit hook. This is mostly for internal use but
+exposed in case you need to work around something.
+
+Default: taken from the other hook options.
+
+
+
+*Type:*
+attribute set of unspecified value
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.require_serial
+
+
+
+if true this hook will execute using a single process instead of in parallel.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.settings.simplify
+
+
+
+Simplify the code.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.shfmt.stages
+
+
+
+Confines the hook to run at a particular stage.
+
+
+
+*Type:*
+list of (one of “commit-msg”, “post-checkout”, “post-commit”, “post-merge”, “post-rewrite”, “pre-commit”, “pre-merge-commit”, “pre-push”, “pre-rebase”, “prepare-commit-msg”, “manual”, “commit”, “push”, “merge-commit”)
+
+
+
+*Default:*
+` default_stages `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.types
+
+
+
+List of file types to run on. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```
+[
+  "file"
+]
+```
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.types_or
+
+
+
+List of file types to run on, where only a single type needs to match.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.shfmt.verbose
+
+
+
+forces the output of the hook to be printed even when the hook passes.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.sort-file-contents
 
 
@@ -27520,6 +31037,27 @@ boolean
 
 
 
+## pre-commit.hooks.sort-file-contents.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.sort-file-contents.description
 
 
@@ -27551,6 +31089,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.sort-file-contents.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -27957,6 +31516,27 @@ boolean
 
 
 
+## pre-commit.hooks.statix.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.statix.description
 
 
@@ -27988,6 +31568,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.statix.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -28436,6 +32037,27 @@ boolean
 
 
 
+## pre-commit.hooks.treefmt.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.treefmt.description
 
 
@@ -28467,6 +32089,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.treefmt.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -28852,6 +32495,27 @@ boolean
 
 
 
+## pre-commit.hooks.typos.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.typos.description
 
 
@@ -28883,6 +32547,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.typos.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -29621,6 +33306,27 @@ boolean
 
 
 
+## pre-commit.hooks.vale.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.vale.description
 
 
@@ -29652,6 +33358,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.vale.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -30012,6 +33739,469 @@ boolean
 
 
 
+## pre-commit.hooks.yamlfmt
+
+
+
+yamlfmt hook
+
+
+
+*Type:*
+submodule
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.enable
+
+
+
+Whether to enable this pre-commit hook.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.package
+
+
+
+An optional package that provides the hook.
+
+
+
+*Type:*
+null or package
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.always_run
+
+
+
+if true this hook will run even if there are no matching files.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.description
+
+
+
+Description of the hook. Used for metadata purposes only.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.entry
+
+
+
+The entry point - the executable to run. ` entry ` can also contain arguments that will not be overridden, such as ` entry = "autopep8 -i"; `.
+
+
+
+*Type:*
+string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.excludes
+
+
+
+Exclude files that were matched by these patterns.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.extraPackages
+
+
+
+Additional packages required to run the hook.
+
+These are propagated to ` enabledPackages ` for constructing developer
+environments.
+
+
+
+*Type:*
+list of package
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.fail_fast
+
+
+
+if true pre-commit will stop running hooks if this hook fails.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.files
+
+
+
+The pattern of files to run on.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.language
+
+
+
+The language of the hook - tells pre-commit how to install the hook.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "system" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.name
+
+
+
+The name of the hook. Shown during hook execution.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+internal name, same as ` id `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.pass_filenames
+
+
+
+Whether to pass filenames as arguments to the entry point.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` true `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.raw
+
+
+
+Raw fields of a pre-commit hook. This is mostly for internal use but
+exposed in case you need to work around something.
+
+Default: taken from the other hook options.
+
+
+
+*Type:*
+attribute set of unspecified value
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.require_serial
+
+
+
+if true this hook will execute using a single process instead of in parallel.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.settings.configPath
+
+
+
+Path to a custom configuration file.
+
+
+
+*Type:*
+string
+
+
+
+*Default:*
+` "" `
+
+
+
+*Example:*
+` ".yamlfmt" `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.stages
+
+
+
+Confines the hook to run at a particular stage.
+
+
+
+*Type:*
+list of (one of “commit-msg”, “post-checkout”, “post-commit”, “post-merge”, “post-rewrite”, “pre-commit”, “pre-merge-commit”, “pre-push”, “pre-rebase”, “prepare-commit-msg”, “manual”, “commit”, “push”, “merge-commit”)
+
+
+
+*Default:*
+` default_stages `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.types
+
+
+
+List of file types to run on. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+
+```
+[
+  "file"
+]
+```
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.types_or
+
+
+
+List of file types to run on, where only a single type needs to match.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamlfmt.verbose
+
+
+
+forces the output of the hook to be printed even when the hook passes.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+` false `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.yamllint
 
 
@@ -30091,6 +34281,27 @@ boolean
 
 
 
+## pre-commit.hooks.yamllint.args
+
+
+
+List of additional parameters to pass to the hook.
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
 ## pre-commit.hooks.yamllint.description
 
 
@@ -30122,6 +34333,27 @@ The entry point - the executable to run. ` entry ` can also contain arguments th
 
 *Type:*
 string
+
+*Declared by:*
+ - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
+
+
+
+## pre-commit.hooks.yamllint.exclude_types
+
+
+
+List of file types to exclude. See [Filtering files with types](https://pre-commit.com/\#filtering-files-with-types).
+
+
+
+*Type:*
+list of string
+
+
+
+*Default:*
+` [ ] `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hook.nix)
@@ -30674,7 +34906,7 @@ lazy attribute set of (null or package)
 
 
 *Default:*
-` pre-commit-hooks.nix-pkgs.callPackage tools-dot-nix { inherit (pkgs) system; } `
+` git-hooks.nix-pkgs.callPackage tools-dot-nix { inherit (pkgs) system; } `
 
 *Declared by:*
  - [https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/pre-commit.nix](https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/pre-commit.nix)
@@ -31628,7 +35860,7 @@ path
 
 
 *Default:*
-` "/home/runner/work/devenv/devenv/.devenv/state/caddy" `
+` "${config.env.DEVENV_STATE}/caddy" `
 
 *Declared by:*
  - [https://github.com/cachix/devenv/blob/main/src/modules/services/caddy.nix](https://github.com/cachix/devenv/blob/main/src/modules/services/caddy.nix)
@@ -35048,6 +39280,27 @@ string
 
 
 
+## services.postgres.initialDatabases.\*.pass
+
+
+
+Password of owner of the database (only takes effect if ` user ` is not ` null `).
+
+
+
+*Type:*
+null or string
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/services/postgres.nix](https://github.com/cachix/devenv/blob/main/src/modules/services/postgres.nix)
+
+
+
 ## services.postgres.initialDatabases.\*.schema
 
 
@@ -35059,6 +39312,27 @@ an empty database is created.
 
 *Type:*
 null or path
+
+
+
+*Default:*
+` null `
+
+*Declared by:*
+ - [https://github.com/cachix/devenv/blob/main/src/modules/services/postgres.nix](https://github.com/cachix/devenv/blob/main/src/modules/services/postgres.nix)
+
+
+
+## services.postgres.initialDatabases.\*.user
+
+
+
+Username of owner of the database (if null, the default $USER is used).
+
+
+
+*Type:*
+null or string
 
 
 
@@ -35973,7 +40247,7 @@ package
 
 
 *Default:*
-` <derivation trafficserver-9.2.3> `
+` pkgs.trafficserver `
 
 *Declared by:*
  - [https://github.com/cachix/devenv/blob/main/src/modules/services/trafficserver](https://github.com/cachix/devenv/blob/main/src/modules/services/trafficserver)
@@ -36302,28 +40576,6 @@ File layout used by Traffic Server
 *Type:*
 unspecified value *(read only)*
 
-
-
-*Default:*
-
-```
-{
-  bindir = "/nix/store/p4vjvd38l79jsxzxlv9q2hbajm7g2js9-trafficserver-9.2.3/bin";
-  cachedir = "/home/runner/work/devenv/devenv/.devenv/state/trafficserver/cache";
-  datadir = "/home/runner/work/devenv/devenv/.devenv/state/trafficserver/share";
-  exec_prefix = "/home/runner/work/devenv/devenv/.devenv/state/trafficserver";
-  includedir = "/nix/store/p4vjvd38l79jsxzxlv9q2hbajm7g2js9-trafficserver-9.2.3/include";
-  libdir = "/nix/store/p4vjvd38l79jsxzxlv9q2hbajm7g2js9-trafficserver-9.2.3/lib";
-  libexecdir = "/nix/store/p4vjvd38l79jsxzxlv9q2hbajm7g2js9-trafficserver-9.2.3/libexec";
-  localstatedir = "/home/runner/work/devenv/devenv/.devenv/state/trafficserver/state";
-  logdir = "/home/runner/work/devenv/devenv/.devenv/state/trafficserver/log";
-  prefix = "/home/runner/work/devenv/devenv/.devenv/state/trafficserver";
-  runtimedir = "/run/user/1001/devenv-0957646/trafficserver";
-  sbindir = "/nix/store/p4vjvd38l79jsxzxlv9q2hbajm7g2js9-trafficserver-9.2.3/bin";
-  sysconfdir = <derivation trafficserver-config>;
-}
-```
-
 *Declared by:*
  - [https://github.com/cachix/devenv/blob/main/src/modules/services/trafficserver](https://github.com/cachix/devenv/blob/main/src/modules/services/trafficserver)
 
@@ -36450,7 +40702,7 @@ strings concatenated with “\\n”
 
 
 *Default:*
-` "/home/runner/work/devenv/devenv/.devenv/state/trafficserver/cache 256M" `
+` "${config.services.traffic-server.runroot.cachedir} 256M" `
 
 
 

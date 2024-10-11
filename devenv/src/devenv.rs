@@ -460,19 +460,21 @@ impl Devenv {
         ));
 
         {
-            let _logprogress = self.log_progress.without_newline(
-                "Running garbage collection (this process may take some time) ...",
-            );
-            let paths: Vec<&str> = to_gc
+            let _logprogress = self
+                .log_progress
+                .with_newline("Running garbage collection (this process will take some time) ...");
+            self.logger.warn("If you'd like this to run faster, leave a thumbs up at https://github.com/NixOS/nix/issues/7239");
+            let paths: std::collections::HashSet<&str> = to_gc
                 .iter()
                 .filter_map(|path_buf| path_buf.to_str())
                 .collect();
-            let args: Vec<&str> = ["store", "gc"]
-                .iter()
-                .chain(paths.iter())
-                .copied()
-                .collect();
-            self.run_nix("nix", &args, &command::Options::default())?;
+            for path in paths {
+                self.logger.info(&format!("Deleting {}...", path));
+                let args: Vec<&str> = ["store", "delete", path].iter().copied().collect();
+                let cmd = self.prepare_command("nix", &args);
+                // we ignore if this command fails, because root might be in use
+                let _ = cmd?.output();
+            }
         }
 
         let (after_gc, _) = cleanup_symlinks(&self.devenv_home_gc);
@@ -648,15 +650,44 @@ impl Devenv {
     pub fn build(&mut self, attributes: &[String]) -> Result<()> {
         self.assemble(false)?;
 
-        let formatted_strings: Vec<String> = attributes
-            .iter()
-            .map(|attr| format!("#.devenv.{}", attr))
-            .collect();
+        let build_attrs: Vec<String> = if attributes.is_empty() {
+            // construct dotted names of all attributes that we need to build
+            let build_output = self.run_nix(
+                "nix",
+                &["eval", ".#build", "--json"],
+                &command::Options::default(),
+            )?;
+            serde_json::from_slice::<serde_json::Value>(&build_output.stdout)
+                .map_err(|e| miette::miette!("Failed to parse build output: {}", e))?
+                .as_object()
+                .ok_or_else(|| miette::miette!("Build output is not an object"))?
+                .iter()
+                .flat_map(|(key, value)| {
+                    fn flatten_object(prefix: &str, value: &serde_json::Value) -> Vec<String> {
+                        match value {
+                            serde_json::Value::Object(obj) => obj
+                                .iter()
+                                .flat_map(|(k, v)| flatten_object(&format!("{}.{}", prefix, k), v))
+                                .collect(),
+                            _ => vec![format!(".#devenv.{}", prefix)],
+                        }
+                    }
+                    flatten_object(key, value)
+                })
+                .collect()
+        } else {
+            attributes
+                .iter()
+                .map(|attr| format!(".#devenv.{}", attr))
+                .collect()
+        };
 
-        let mut args: Vec<&str> = formatted_strings.iter().map(|s| s.as_str()).collect();
-
-        args.insert(0, "build");
-        self.run_nix("nix", &args, &command::Options::default())?;
+        let mut args = vec!["build", "--print-out-paths", "--no-link"];
+        if !build_attrs.is_empty() {
+            args.extend(build_attrs.iter().map(|s| s.as_str()));
+            let output = self.run_nix("nix", &args, &command::Options::default())?;
+            println!("{}", String::from_utf8_lossy(&output.stdout));
+        }
         Ok(())
     }
 
