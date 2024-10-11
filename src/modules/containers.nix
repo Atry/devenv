@@ -29,10 +29,7 @@ let
 
     source ${shell.envScript}
 
-    # expand any envvars before exec
-    cmd="`echo "$@"|${pkgs.envsubst}/bin/envsubst`"
-
-    ${bash} -c "$cmd"
+    exec "$@"
   '';
   user = "user";
   group = "user";
