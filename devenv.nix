@@ -102,7 +102,7 @@
   };
   scripts."devenv-generate-doc-css" = {
     description = "Generate CSS for the docs.";
-    exec = "${lib.getExe pkgs.tailwindcss} build -i docs/assets/extra.css -o docs/assets/output.css";
+    exec = "${lib.getExe pkgs.tailwindcss} -m -i docs/assets/extra.css -o docs/assets/output.css";
   };
   scripts."devenv-generate-doc-options" = {
     description = "Generate option docs.";
@@ -215,12 +215,26 @@ EOF
     '';
   };
 
+  tasks = {
+    "devenv:compile-requirements" = {
+      exec = "uv pip compile requirements.in -o requirements.txt";
+      before = [ "devenv:python:virtualenv" ];
+      status = ''
+        get_last_modified() {
+          stat -c %Y $1 2>/dev/null || stat -f %m $1 2>/dev/null || echo 0
+        }
+        input=$(get_last_modified "requirements.in")
+        output=$(get_last_modified "requirements.txt")
+        if [[ $output -eq 0 || $input -gt $output ]]; then
+          exit 1
+        fi
+      '';
+    };
+  };
+
   pre-commit.hooks = {
     nixpkgs-fmt.enable = true;
-    #shellcheck.enable = true;
-    #clippy.enable = true;
     rustfmt.enable = true;
-    #markdownlint.enable = true;
     markdownlint.settings.configuration = {
       MD013 = {
         line_length = 120;
@@ -232,6 +246,7 @@ EOF
       enable = true;
       name = "generate-doc-css";
       entry = config.scripts."devenv-generate-doc-css".exec;
+      files = "docs/assets/extra.css";
     };
   };
 }

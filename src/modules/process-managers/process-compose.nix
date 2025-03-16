@@ -81,6 +81,7 @@ in
 
     process.manager.args = {
       "config" = cfg.configFile;
+      "disable-dotenv" = true;
       "port" = if !cfg.unixSocket.enable then toString cfg.port else null;
       "unix-socket" =
         if cfg.unixSocket.enable
@@ -96,7 +97,7 @@ in
         up "$@" &
     '';
 
-    packages = [ cfg.package ] ++ lib.optional cfg.tui.enable pkgs.ncurses;
+    packages = [ cfg.package ];
 
     process.managers.process-compose = {
       configFile = lib.mkDefault (settingsFormat.generate "process-compose.yaml" cfg.settings);
