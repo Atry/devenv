@@ -15,13 +15,12 @@
     pkgs.watchexec
     pkgs.openssl
     pkgs.sqlx-cli
-  ] ++ lib.optionals pkgs.stdenv.isDarwin (with pkgs.darwin.apple_sdk; [
-    frameworks.SystemConfiguration
-  ]);
+  ];
 
   languages.nix.enable = true;
   # for cli
   languages.rust.enable = true;
+  languages.rust.channel = "stable";
   # for docs
   languages.python.enable = true;
   # it breaks glibc
@@ -92,7 +91,7 @@
         grep -F 'nix-develop started succesfully' <./console
         grep -F "$(${lib.getExe pkgs.hello})" <./console
         # Test that a container can be built
-        if $(uname) == "Linux"
+        if [ "$(uname)" = "Linux" ]
         then
           nix build --override-input devenv-root "file+file://"<(printf %s "$PWD") --accept-flake-config --show-trace .#container-processes
         fi
@@ -102,7 +101,7 @@
   };
   scripts."devenv-generate-doc-css" = {
     description = "Generate CSS for the docs.";
-    exec = "${lib.getExe pkgs.tailwindcss} build -i docs/assets/extra.css -o docs/assets/output.css";
+    exec = "${lib.getExe pkgs.tailwindcss} -m -i docs/assets/extra.css -o docs/assets/output.css";
   };
   scripts."devenv-generate-doc-options" = {
     description = "Generate option docs.";
@@ -215,12 +214,26 @@ EOF
     '';
   };
 
+  tasks = {
+    "devenv:compile-requirements" = {
+      exec = "uv pip compile requirements.in -o requirements.txt";
+      before = [ "devenv:python:virtualenv" ];
+      status = ''
+        get_last_modified() {
+          stat -c %Y $1 2>/dev/null || stat -f %m $1 2>/dev/null || echo 0
+        }
+        input=$(get_last_modified "requirements.in")
+        output=$(get_last_modified "requirements.txt")
+        if [[ $output -eq 0 || $input -gt $output ]]; then
+          exit 1
+        fi
+      '';
+    };
+  };
+
   pre-commit.hooks = {
     nixpkgs-fmt.enable = true;
-    #shellcheck.enable = true;
-    #clippy.enable = true;
     rustfmt.enable = true;
-    #markdownlint.enable = true;
     markdownlint.settings.configuration = {
       MD013 = {
         line_length = 120;
@@ -232,6 +245,7 @@ EOF
       enable = true;
       name = "generate-doc-css";
       entry = config.scripts."devenv-generate-doc-css".exec;
+      files = "docs/assets/extra.css";
     };
   };
 }

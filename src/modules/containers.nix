@@ -104,8 +104,9 @@ let
           pkgs.bashInteractive
           pkgs.su
           pkgs.sudo
+          pkgs.dockerTools.usrBinEnv
         ];
-        pathsToLink = "/bin";
+        pathsToLink = [ "/bin" "/usr/bin" ];
       })
       mkEtc
       mkTmp

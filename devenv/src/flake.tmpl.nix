@@ -3,8 +3,9 @@
     let
       __DEVENV_VARS__
         in {
-        pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-      pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+        git-hooks.url = "github:cachix/git-hooks.nix";
+      git-hooks.inputs.nixpkgs.follows = "nixpkgs";
+      pre-commit-hooks.follows = "git-hooks";
       nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
       devenv.url = "github:cachix/devenv?dir=src/modules";
       } // (if builtins.pathExists (devenv_dotfile + "/flake.json")
@@ -59,7 +60,7 @@
               then devenvdefaultpath
               else throw (devenvdefaultpath + " file does not exist for input ${name}.");
           project = pkgs.lib.evalModules {
-            specialArgs = inputs // { inherit inputs pkgs; };
+            specialArgs = inputs // { inherit inputs; bootstrapPkgs = pkgs; };
             modules = [
               (inputs.devenv.modules + /top-level.nix)
               {
@@ -77,6 +78,11 @@
               (pkgs.lib.optionalAttrs (container_name != null) {
                 container.isBuilding = pkgs.lib.mkForce true;
                 containers.${container_name}.isBuilding = true;
+              })
+              ({ options, ... }: {
+                config.devenv = pkgs.lib.optionalAttrs (builtins.hasAttr "direnvrcLatestVersion" options.devenv) {
+                  direnvrcLatestVersion = devenv_direnvrc_latest_version;
+                };
               })
             ] ++ (map importModule (devenv.imports or [ ])) ++ [
               ./devenv.nix
@@ -116,16 +122,18 @@
                   } else { }
               )
               options;
+
+          systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
         in
         {
-          packages."${system}" = {
+          devShell = lib.genAttrs systems (system: config.shell);
+          packages = lib.genAttrs systems (system: {
             optionsJSON = options.optionsJSON;
             # deprecated
             inherit (config) info procfileScript procfileEnv procfile;
             ci = config.ciDerivation;
-          };
+          });
           devenv = config;
           build = build project.options project.config;
-          devShell."${system}" = config.shell;
         };
       }

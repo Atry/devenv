@@ -1,9 +1,12 @@
+use std::{os::unix::process::CommandExt, process::Command};
+
 use clap::crate_version;
 use devenv::{
     cli::{Cli, Commands, ContainerCommand, InputsCommand, ProcessesCommand, TasksCommand},
     config, log, Devenv,
 };
 use miette::Result;
+use tracing::{info, warn};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -19,8 +22,11 @@ async fn main() -> Result<()> {
     };
 
     let command = match cli.command {
-        None => return print_version(),
-        Some(Commands::Version { .. }) => return print_version(),
+        None | Some(Commands::Version) => return print_version(),
+        Some(Commands::Direnvrc) => {
+            print!("{}", *devenv::DIRENVRC);
+            return Ok(());
+        }
         Some(cmd) => cmd,
     };
 
@@ -29,10 +35,10 @@ async fn main() -> Result<()> {
     } else if cli.global_options.quiet {
         log::Level::Silent
     } else {
-        log::Level::Info
+        log::Level::default()
     };
 
-    let logger = log::Logger::new(level);
+    log::init_tracing(level, cli.global_options.log_format);
 
     let mut config = config::Config::load()?;
     for input in cli.global_options.override_input.chunks_exact(2) {
@@ -40,7 +46,6 @@ async fn main() -> Result<()> {
     }
 
     let mut options = devenv::DevenvOptions {
-        logger: Some(logger.clone()),
         global_options: Some(cli.global_options),
         config,
         ..Default::default()
@@ -55,10 +60,10 @@ async fn main() -> Result<()> {
         let tmpdir =
             tempdir::TempDir::new_in(pwd, ".devenv").expect("Failed to create temporary directory");
         if !dont_override_dotfile {
-            logger.info(&format!(
+            info!(
                 "Overriding .devenv to {}",
                 tmpdir.path().file_name().unwrap().to_str().unwrap()
-            ));
+            );
             options.devenv_dotfile = Some(tmpdir.path().to_path_buf());
         }
         Some(tmpdir)
@@ -106,15 +111,13 @@ async fn main() -> Result<()> {
                 Some(name) => {
                     match (copy, docker_run) {
                         (true, false) => {
-                            logger.warn(
-                                "--copy flag is deprecated, use `devenv container copy` instead",
-                            );
+                            warn!("--copy flag is deprecated, use `devenv container copy` instead",);
                             devenv
                                 .container_copy(&name, &copy_args, registry.as_deref())
                                 .await?;
                         }
                         (_, true) => {
-                            logger.warn(
+                            warn!(
                                 "--docker-run flag is deprecated, use `devenv container run` instead",
                             );
                             devenv
@@ -122,7 +125,7 @@ async fn main() -> Result<()> {
                                 .await?;
                         }
                         _ => {
-                            logger.warn("Calling without a subcommand is deprecated, use `devenv container build` instead");
+                            warn!("Calling without a subcommand is deprecated, use `devenv container build` instead");
                             let _ = devenv.container_build(&name).await?;
                         }
                     };
@@ -131,10 +134,25 @@ async fn main() -> Result<()> {
             Ok(())
         }
         Commands::Init { target } => devenv.init(&target),
+        Commands::Generate { .. } => match which::which("devenv-generate") {
+            Ok(devenv_generate) => {
+                let error = Command::new(devenv_generate)
+                    .args(std::env::args().skip(1).filter(|arg| arg != "generate"))
+                    .exec();
+                miette::bail!("failed to execute devenv-generate {error}");
+            }
+            Err(_) => {
+                miette::bail!(indoc::formatdoc! {"
+                    devenv-generate was not found in PATH
+
+                    It was moved to a separate binary due to https://github.com/cachix/devenv/issues/1733
+                "})
+            }
+        },
         Commands::Search { name } => devenv.search(&name).await,
         Commands::Gc {} => devenv.gc(),
         Commands::Info {} => devenv.info().await,
-        Commands::Repl {} => devenv.repl(),
+        Commands::Repl {} => devenv.repl().await,
         Commands::Build { attributes } => devenv.build(&attributes).await,
         Commands::Update { name } => devenv.update(&name).await,
         Commands::Up { process, detach } => devenv.up(process.as_deref(), &detach, &detach).await,
@@ -152,12 +170,13 @@ async fn main() -> Result<()> {
         },
 
         // hidden
-        Commands::Assemble => devenv.assemble(false),
+        Commands::Assemble => devenv.assemble(false).await,
         Commands::PrintDevEnv { json } => devenv.print_dev_env(json).await,
         Commands::GenerateJSONSchema => {
             config::write_json_schema();
             Ok(())
         }
-        Commands::Version {} => unreachable!(),
+        Commands::Direnvrc => unreachable!(),
+        Commands::Version => unreachable!(),
     }
 }

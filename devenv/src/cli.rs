@@ -1,5 +1,7 @@
+use crate::log::LogFormat;
 use clap::{crate_version, Parser, Subcommand};
 use std::path::PathBuf;
+use tracing::error;
 
 #[derive(Parser)]
 #[command(
@@ -38,7 +40,7 @@ pub struct GlobalOptions {
     )]
     pub version: bool,
 
-    #[arg(short, long, global = true, help = "Enable debug log level.")]
+    #[arg(short, long, global = true, help = "Enable additional debug logs.")]
     pub verbose: bool,
 
     #[arg(
@@ -46,9 +48,18 @@ pub struct GlobalOptions {
         long,
         global = true,
         conflicts_with = "verbose",
-        help = "Disable all logs"
+        help = "Silence all logs"
     )]
     pub quiet: bool,
+
+    #[arg(
+        long,
+        global = true,
+        help = "Configure the output format of the logs.",
+        default_value_t,
+        value_enum
+    )]
+    pub log_format: LogFormat,
 
     #[arg(short = 'j', long,
         global = true, help = "Maximum number of Nix builds at any time.",
@@ -84,7 +95,7 @@ pub struct GlobalOptions {
     /// Disable the evaluation cache. Sets `eval_cache` to false.
     #[arg(long, global = true, hide = true)]
     #[arg(overrides_with = "eval_cache")]
-    no_eval_cache: bool,
+    pub no_eval_cache: bool,
 
     #[arg(
         long,
@@ -141,6 +152,7 @@ impl Default for GlobalOptions {
             version: false,
             verbose: false,
             quiet: false,
+            log_format: LogFormat::default(),
             max_jobs: max_jobs(),
             cores: 2,
             system: default_system(),
@@ -170,8 +182,26 @@ impl GlobalOptions {
 #[derive(Subcommand, Clone)]
 pub enum Commands {
     #[command(about = "Scaffold devenv.yaml, devenv.nix, .gitignore and .envrc.")]
-    Init {
-        target: Option<PathBuf>,
+    Init { target: Option<PathBuf> },
+
+    #[command(about = "Generate devenv.yaml and devenv.nix using AI")]
+    Generate {
+        #[arg(num_args=0.., trailing_var_arg = true)]
+        description: Vec<String>,
+
+        #[clap(long, default_value = "https://devenv.new")]
+        host: String,
+
+        #[arg(
+            long,
+            help = "Paths to exclude during generation.",
+            value_name = "PATH"
+        )]
+        exclude: Vec<PathBuf>,
+
+        // https://consoledonottrack.com/
+        #[clap(long, env = "DO_NOT_TRACK", action = clap::ArgAction::SetTrue)]
+        disable_telemetry: bool,
     },
 
     #[command(about = "Activate the developer environment. https://devenv.sh/basics/")]
@@ -181,16 +211,12 @@ pub enum Commands {
     },
 
     #[command(about = "Update devenv.lock from devenv.yaml inputs. http://devenv.sh/inputs/")]
-    Update {
-        name: Option<String>,
-    },
+    Update { name: Option<String> },
 
     #[command(
         about = "Search for packages and options in nixpkgs. https://devenv.sh/packages/#searching-for-a-file"
     )]
-    Search {
-        name: String,
-    },
+    Search { name: String },
 
     #[command(
         alias = "show",
@@ -249,10 +275,13 @@ pub enum Commands {
         command: InputsCommand,
     },
 
+    #[command(
+        about = "Launch an interactive environment for inspecting the devenv configuration."
+    )]
     Repl {},
 
     #[command(
-        about = "Deletes previous shell generations. See http://devenv.sh/garbage-collection"
+        about = "Delete previous shell generations. See https://devenv.sh/garbage-collection"
     )]
     Gc {},
 
@@ -262,8 +291,13 @@ pub enum Commands {
         attributes: Vec<String>,
     },
 
+    #[command(
+        about = "Print a direnvrc that adds devenv support to direnv. See https://devenv.sh/automatic-shell-activation."
+    )]
+    Direnvrc,
+
     #[command(about = "Print the version of devenv.")]
-    Version {},
+    Version,
 
     #[clap(hide = true)]
     Assemble,
@@ -358,7 +392,7 @@ pub fn default_system() -> String {
 
 fn max_jobs() -> u8 {
     let num_cpus = std::thread::available_parallelism().unwrap_or_else(|e| {
-        eprintln!("Failed to get number of logical CPUs: {}", e);
+        error!("Failed to get number of logical CPUs: {}", e);
         std::num::NonZeroUsize::new(4).unwrap()
     });
     std::cmp::max(num_cpus.get().div_ceil(2), 2) as u8

@@ -1,7 +1,11 @@
 { pkgs, lib, config, ... }@inputs:
 let
   types = lib.types;
-  devenv = import ./../../package.nix { inherit pkgs inputs; build_tasks = true; };
+  devenv = pkgs.callPackage ./../../package.nix {
+    build_tasks = true;
+    inherit (inputs.nix.packages.${pkgs.stdenv.system}) nix;
+    inherit (inputs.cachix.packages.${pkgs.stdenv.system}) cachix;
+  };
   taskType = types.submodule
     ({ name, config, ... }:
       let
@@ -9,8 +13,14 @@ let
           if builtins.isNull command
           then null
           else
+            let
+              binary =
+                if config.binary != null
+                then "${pkgs.lib.getBin config.package}/bin/${config.binary}"
+                else pkgs.lib.getExe config.package;
+            in
             pkgs.writeScript name ''
-              #!${pkgs.lib.getBin config.package}/bin/${config.binary}
+              #!${binary}
               ${lib.optionalString (!isStatus) "set -e"}
               ${command}
               ${lib.optionalString (config.exports != [] && !isStatus) "${devenv}/bin/devenv-tasks export ${lib.concatStringsSep " " config.exports}"}
@@ -24,13 +34,14 @@ let
             description = "Command to execute the task.";
           };
           binary = lib.mkOption {
-            type = types.str;
-            description = "Override the binary name if it doesn't match package name";
-            default = config.package.pname;
+            type = types.nullOr types.str;
+            description = "Override the binary name from the default `package.meta.mainProgram`.";
+            default = null;
           };
           package = lib.mkOption {
             type = types.package;
             default = pkgs.bash;
+            defaultText = lib.literalExpression "pkgs.bash";
             description = "Package to install for this task.";
           };
           command = lib.mkOption {
@@ -112,8 +123,8 @@ in
 
     assertions = [
       {
-        assertion = lib.all (task: task.binary == "bash" || task.export == [ ]) (lib.attrValues config.tasks);
-        message = "The 'export' option can only be set when 'binary' is set to 'bash'.";
+        assertion = lib.all (task: task.package.meta.mainProgram == "bash" || task.binary == "bash" || task.exports == [ ]) (lib.attrValues config.tasks);
+        message = "The 'exports' option for a task can only be set when 'package' is a bash package.";
       }
     ];
 
